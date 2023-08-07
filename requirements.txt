@@ -12,7 +12,7 @@ torchvision
 scikit-learn
 
 # Image, Video
-opencv-python>=4.1.1.26
+# opencv-python>=4.1.1.26
 
 # RL
 gym>=0.15.3, <0.15.4
