@@ -104,4 +104,4 @@ model.eval()
 logit_pi, mean, std = model(test_data.to(device))
 samples = model.mdn_head.sample(logit_pi, mean, std, 2.0)
 
-print(torch.mean(samples)))
+print((torch.mean(samples)).detach().cpu().numpy())
