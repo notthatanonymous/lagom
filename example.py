@@ -73,7 +73,7 @@ optimizer = optim.AdamW(model.parameters(), lr=5e-3, weight_decay=0.01)
 #model
 
 
-N = 3000
+N = 5000
 epochs = 1000
 batch_size = 128
 
