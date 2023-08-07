@@ -74,7 +74,7 @@ optimizer = optim.AdamW(model.parameters(), lr=5e-3, weight_decay=0.01)
 
 
 N = 3000
-epochs = 100
+epochs = 1000
 batch_size = 128
 
 dataset = Dataset(n=N)
@@ -94,7 +94,7 @@ for epoch in range(epochs):
         
         losses.append(loss.item())
         
-    if epoch == 0 or (epoch+1)%10 == 0:
+    if epoch == 0 or (epoch+1)%100 == 0:
         #IPython.display.clear_output(wait=True)
         print(f'Epoch: {epoch+1}\t Loss: {np.mean(losses)}')
 
