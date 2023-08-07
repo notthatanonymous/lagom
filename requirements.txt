@@ -7,6 +7,8 @@ scipy
 cloudpickle
 pyyaml
 colorama>=0.4.1
+torch
+torchvision
 
 # Image, Video
 opencv-python>=4.1.1.26
