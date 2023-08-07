@@ -73,7 +73,7 @@ optimizer = optim.AdamW(model.parameters(), lr=5e-3, weight_decay=0.01)
 #model
 
 
-N = 300
+N = 3000
 epochs = 10
 batch_size = 128
 
@@ -97,3 +97,11 @@ for epoch in range(epochs):
     if epoch == 0 or (epoch+1)%100 == 0:
         #IPython.display.clear_output(wait=True)
         print(f'Epoch: {epoch+1}\t Loss: {np.mean(losses)}')
+
+test_data = torch.linspace(-15, 15, steps=1000).unsqueeze(1)
+
+model.eval()
+logit_pi, mean, std = model(test_data.to(device))
+samples = model.mdn_head.sample(logit_pi, mean, std, 2.0)
+
+print(samples)
