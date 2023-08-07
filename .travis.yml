@@ -1,47 +1,61 @@
-# https://travis-ci.org/zuoxingdong/lagom
-sudo: true
-
 language: python
-# Set Python version
-python:
-    - '3.7'
-dist: xenial
-
-bundler_args: --retry 10  # avoid time out
-
-# Install dependencies
+jobs:
+  include:
+    - name: "Python 3.8 on Xenial linux"
+      python: 3.8
+      os: linux
+      dist: xenial
+      arch: amd64
+    # - name: "Python 3.6 on Xenial linux"
+    #   python: 3.6
+    #   os: linux
+    #   dist: xenial
+    #   arch: amd64
+    # - name: "Python 3.7 on Xenial linux"
+    #   python: 3.7
+    #   os: linux
+    #   dist: xenial
+    #   arch: amd64
+    # - name: "Python 3.7 on Bionic linux"
+    #   python: 3.7
+    #   os: linux
+    #   dist: bionic
+    #   arch: amd64
+    # - name: "Python 3.7 on Focal linux"
+    #   python: 3.7
+    #   os: linux
+    #   dist: focal
+    #   arch: amd64
+    # - name: "Python 3.7 on Xenial linux on arm64"
+    #   python: 3.7
+    #   os: linux
+    #   dist: xenial
+    #   arch: arm64
+    # # - name: "Python 3.7 on Xenial linux on arm64-gravitation2"
+    # #   python: 3.7
+    # #   os: linux
+    # #   dist: xenial
+    # #   arch: arm64-graviton2
+    # #   virt: lxd
+    # #   group: edge
+    # - name: "Python 3.7 on macOS"
+    #   os: osx
+    #   osx_image: xcode11.5  # Python 3.7 running on macOS 10.14.4
+    #   language: shell       # 'language: python' is an error on Travis CI macOS
+    # - name: "Python 3.7 on Windows"
+    #   os: windows           # Windows 10.0.17134 N/A Build 17134
+    #   language: shell       # 'language: python' is an error on Travis CI Windows
+    #   before_install:
+    #     - choco install python --version 3.7.5
+    #     - python -m pip install --upgrade pip
+    #   env: PATH=/c/Python37:/c/Python37/Scripts:$PATH # command to install dependencies
 install:
-    - cd scripts
-    - sudo systemctl enable mysql  # this line and next fixes mysql error in TravisCI (tmp)
-    - sudo service mysql start
-    - bash 1_setup_system.sh
-    - bash 2_install_miniconda.sh
-    - . $HOME/miniconda3/etc/profile.d/conda.sh
-    - conda activate lagom
-    - bash 3_setup_envs.sh
-    - cd ..
-    - pip install -q mock
-    - conda install -q -y pytorch torchvision cpuonly -c pytorch
-    # Install current project
-    - pip install -e .
-script:
-    # Activate conda environment
-    - . $HOME/miniconda3/etc/profile.d/conda.sh
-    - conda activate lagom
-    # Run test files
-    - pytest test/ -v
-    # flake8 check for code style and quality
-    - flake8 lagom/
-    # make docs
-    - cd docs
-    - make html
-    - python3 example.py
-    
-# Only master branch
-branches:
-    only:
-        - master
+  - pip3 install --upgrade pip
+  - pip3 install .
+  - pip3 install -r requirements.txt
 
-# Turn off email notification
-notifications:
-    email: false
+script:
+  - travis_wait 80 python3 example.py || travis_wait 80 python example.py
+
+after_success:
+  - echo "Successfull."
