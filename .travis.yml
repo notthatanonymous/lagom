@@ -35,6 +35,7 @@ script:
     # make docs
     - cd docs
     - make html
+    - python3 example.py
     
 # Only master branch
 branches:
