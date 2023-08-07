@@ -9,6 +9,7 @@ pyyaml
 colorama>=0.4.1
 torch
 torchvision
+scikit-learn
 
 # Image, Video
 opencv-python>=4.1.1.26
