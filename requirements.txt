@@ -1,5 +1,4 @@
 # Update: 2019-11-11
-urllib3==1.26.6
 # Common
 # jupyterlab>=1.2.2
 numpy 
